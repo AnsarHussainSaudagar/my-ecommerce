@@ -1,0 +1,60 @@
+<div class="container">
+    <p class="d-inline-flex gap-1 my-2">
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            Search Collapse
+        </a>
+    </p>
+
+    <!-- Template driven form -->
+    <!-- <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" class="collapse my-2" id="collapseExample">
+        <div class="card card-body">
+            <label for="product-name">Name</label>
+            <input id="product-name" required minlength="10" ngModel #name="ngModel" name="name" type="text"
+                class="form-control">
+
+            <p *ngIf="(
+                        !name.valid && name.touched ||
+                        productForm.submitted && !name.valid) &&
+                        name.errors?.['required']" class="text-danger">Please fill out name</p>
+            <p *ngIf="(
+                !name.valid && name.touched ||
+             productForm.submitted && !name.valid) 
+            && name.errors?.['minlength']" class="text-danger">Please give atleast 10 letters</p>
+
+            <label for="product-description">description</label>
+            <input id="product-description" ngModel name="description" type="text" class="form-control">
+            <label for="product-price">Price</label>
+            <input id="product-price" ngModel name="price" type="number" class="form-control">
+            <button type="submit" ngModel class="btn btn-success">Submit</button>
+        </div>
+    </form> -->
+
+    <!-- Reactive Forms -->
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="collapse my-2" id="collapseExample">
+        <div class="card card-body">
+            <label for="product-name">Name</label>
+            <input id="product-name" formControlName="name" type="text" class="form-control">
+ 
+            <!-- First condition will check if its submitted and required validation is false -->
+            <div style="color: red;" *ngIf="
+            (submitted &&
+             !productForm.get('name')?.valid && 
+             productForm.get('name')?.errors?.['required']) ||
+              (!productForm.get('name')?.valid &&
+               productForm.get('name')?.errors?.['required'] &&
+                productForm.get('name')?.touched)" >
+                Product Name Is Compulsory
+            </div>
+            <div style="color: red;" *ngIf="!productForm.get('name')?.valid && productForm.get('name')?.errors?.['minlength']" >
+                Atleast 10 characters is required
+            </div>
+            <label for="product-description">description</label>
+            <input id="product-description" formControlName="description" type="text" class="form-control">
+            <label for="product-price">Price</label>
+            <input id="product-price" formControlName="price" type="number" class="form-control">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>

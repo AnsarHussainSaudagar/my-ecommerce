@@ -1,0 +1,25 @@
+
+<div class="container mt-4">
+  <app-add-product></app-add-product>
+  <div class="row g-3">
+    <ng-container *ngIf="products.length > 0">
+
+      <div (click)="onClickProduct(product.id)" style="cursor: pointer;" *ngFor="let product of products; let i =index" class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div  class="card h-100">
+          <img style="height: 50%;" [src]="product.img" class="card-img-top" alt="Product Image">
+          <div class="card-body d-flex flex-column">
+            <h5 appHighligh class="card-title">{{ product.name | titlecase }}</h5>
+            <p class="card-text">{{ product.description }}...</p>
+            <p [ngClass]="{'expensive': product.price >= 100}" class="fw-bold">{{ product.price | currency: 'INR':
+              'symbol' :'1.0-4' }}</p>
+            <a (click)="onClickAddToCart()" href="#" class="btn btn-primary mt-auto">Add To Cart</a>
+            <!-- <a (click)="onClickDelete(product.id)" href="#" class="btn btn-danger mt-auto">Delete Product</a> -->
+            <button (click)="onClickDelete(product.id, $event)" href="#" class="btn btn-danger mt-auto">Delete Product</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    \<ng-container *ngIf="products.length === 0">
+      <h1>Sorry products are currently unavailable</h1>
+    </ng-container>
+  </div>

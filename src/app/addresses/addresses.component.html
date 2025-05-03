@@ -1,0 +1,45 @@
+<div class="card container mt-2">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+        <div class="my-3">
+            <label for="exampleInputEmail1" class="form-label">City</label>
+            <input formControlName="city" type="text" class="form-control" id="exampleInputEmail1"
+                aria-describedby="emailHelp">
+            <div style="color: red;" *ngIf="
+            (submitted &&
+             !addressForm.get('city')?.valid && 
+             addressForm.get('city')?.errors?.['required']) ||
+              (!addressForm.get('city')?.valid &&
+               addressForm.get('city')?.errors?.['required'] &&
+                addressForm.get('city')?.touched)">
+                City Name Is Compulsory
+            </div>
+            <div style="color: red;" *ngIf="
+            (submitted &&
+             !addressForm.get('city')?.valid && 
+             addressForm.get('city')?.errors?.['invalidCity']) ||
+              (!addressForm.get('city')?.valid &&
+               addressForm.get('city')?.errors?.['invalidCity'] &&
+                addressForm.get('city')?.touched)">
+                City is not valid
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">State</label>
+            <input formControlName="state" type="text" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Country</label>
+            <input formControlName="country" type="text" class="form-control" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="card container mt-2">
+    <div class="card-body">
+        <div *ngFor="let address of addresses | async">
+            <app-update-address [address]="address"></app-update-address>
+        </div>
+    </div>
+</div>

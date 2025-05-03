@@ -1,0 +1,29 @@
+<p>City: {{address.city}}</p>
+
+<p>State: {{address.state}}</p>
+<p>Country: {{address.country}}</p>
+<a class="btn btn-warning" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+    aria-controls="collapseExample">
+    Update
+</a>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        <form [formGroup]="addressForm" (ngSubmit)="onUpdate(address.id)">
+            <div class="my-3">
+                <label for="exampleInputEmail1" class="form-label">City</label>
+                <input [value]="address.city" formControlName="city" type="text" class="form-control"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">State</label>
+                <input formControlName="state" type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Country</label>
+                <input formControlName="country" type="text" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Adress</button>
+        </form>
+    </div>
+</div>
